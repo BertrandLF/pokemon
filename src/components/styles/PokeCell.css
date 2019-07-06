@@ -1,0 +1,8 @@
+.poke-cell {
+  width: 120px;
+  height: 120px;
+  margin: 10px;
+  background-color:rgb(145, 75, 177);
+  background-repeat: no-repeat;
+  border: none;
+}

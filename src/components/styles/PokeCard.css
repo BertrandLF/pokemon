@@ -1,0 +1,28 @@
+
+.captured-pokemon {
+  display: flex;
+  height: 8em;
+}
+
+.pokemon-data {
+  display: table;
+  width: 18em;
+  padding: 3em;
+}
+
+.data-row {
+  display: table-row;
+  padding-bottom: 1em;
+}
+
+.cell {
+  display: table-cell;
+  width: 6em;
+  padding-bottom: 0.5em;
+}
+
+.sprite-image {
+  height: 6em;
+  width: 6em;
+  margin: 2em;
+}
