@@ -1,7 +1,8 @@
 
 .captured-pokemon {
   display: flex;
-  height: 8em;
+  height: 9em;
+  margin-top: -1em;
 }
 
 .pokemon-data {

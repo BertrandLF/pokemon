@@ -1,9 +1,9 @@
 .captured-pokemons {
   width: 50%;
   height: 100%;
-  padding: 10px;
+  padding: 1em;
   background-color: #09dfb1;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
   justify-content: center;
 }

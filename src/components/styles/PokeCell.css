@@ -1,7 +1,7 @@
 .poke-cell {
-  width: 120px;
-  height: 120px;
-  margin: 10px;
+  width: 10em;
+  height: 9em;
+  margin: 0.7em;
   background-color:rgb(145, 75, 177);
   background-repeat: no-repeat;
   border: none;

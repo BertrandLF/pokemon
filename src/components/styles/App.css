@@ -2,10 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1000px;
-  height: 800px;
-  padding-left: 10px;
-  margin: 50px auto;
-  border-radius: 10px;
-  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.22), 0 18px 45px rgba(0, 0, 0, 0.22);
+  width: 65em;
+  height: 50em;
+  padding-left: 0.6em;
+  margin: 3em auto;
+  border-radius: 1em;
+  box-shadow: 0 1em 4em rgba(0, 0, 0, 0.22), 0 1em 4em rgba(0, 0, 0, 0.22);
 }
