@@ -1,25 +1,48 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import WildPokemons from './WildPokemons';
 import CapturedPokemons from './CapturedPokemons';
 import Pokemon from './Pokemon';
 import './styles/App.css';
-class App extends Component {
+import ReactDOM from 'react-dom';
 
-  state = {
-    wildPokemons: Array<Pokemon>(),
-    capturedPokemons: Array<Pokemon>(),
-    pokeballs: 6
-  };
+function App() {
 
-  constructor(props: Object) {
-    super(props);
-    this.capture = this.capture.bind(this);
-    this.release = this.release.bind(this);
+  const [wildPokemons, setWildPokemons] = useState(new Set<Pokemon>());
+  const [capturedPokemons, setCapturedPokemons] = useState(new Array<Pokemon>());
+  const [pokeBalls, setPokeBalls] = useState(6);
+  const [loadedPokemonId, setLoadedPokemonId] = useState(1);
+
+  useEffect(() => {
+    var timerID = setInterval(() => addPokemon(), 500);
+
+    return function cleanup() {
+      clearInterval(timerID);
+    };
+  });
+
+  function addPokemon() {
+    if (loadedPokemonId < 152) {
+      fetch(`https://pokeapi.co/api/v2/pokemon/${loadedPokemonId}`, {
+        method: "GET",
+        headers: {
+          "access-control-allow-origin": "*",
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          const pokemon = new Pokemon(data);
+          wildPokemons.add(pokemon);
+          setWildPokemons(wildPokemons);
+          setLoadedPokemonId(loadedPokemonId + 1);
+        })
+        .catch(err => console.log('Failed to catch it !', err));
+    }
   }
 
-  capture(id: number) {
+  function capture(id: number) {
     const index = id - 1;
-    if (this.state.pokeballs > 0) {
+    if (pokeBalls > 0) {
       fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
         method: "GET",
         headers: {
@@ -30,45 +53,35 @@ class App extends Component {
         .then(res => res.json())
         .then(data => {
           const pokemon = new Pokemon(data);
-          const captured: Pokemon[] = this.state.capturedPokemons;
-          captured.push(pokemon);
-          const wild: Pokemon[] = this.state.wildPokemons;
-          wild.splice(index, 1);
-          this.setState({
-            capturedPokemons: captured,
-            wildPokemons: wild,
-            pokeballs: this.state.pokeballs - 1
-          });
+          capturedPokemons.push(pokemon);
+          wildPokemons.delete(pokemon);
+          setCapturedPokemons(capturedPokemons);
+          setWildPokemons(wildPokemons);
+          setPokeBalls(pokeBalls - 1);
         })
         .catch(err => console.log('Failed to catch it !', err));
     }
   }
 
-  release(index: number) {
-    const captured: Pokemon[] = this.state.capturedPokemons;
-    const wild: Pokemon[] = this.state.wildPokemons;
-    const pokemon: Pokemon = captured[index];
-    captured.splice(index, 1);
-    wild.splice(pokemon.id - 1, 1, pokemon);
-    this.setState({
-      capturedPokemons: captured,
-      wildPokemons: wild,
-      pokeballs: this.state.pokeballs + 1
-    });
+  function release(index: number) {
+    const pokemon: Pokemon = capturedPokemons[index];
+    capturedPokemons.splice(index, 1);
+    wildPokemons.add(pokemon);
+    setCapturedPokemons(capturedPokemons);
+    setWildPokemons(wildPokemons);
+    setPokeBalls(pokeBalls + 1);
   }
 
-  render() {
-    return (
-      <div className="App">
-        <WildPokemons
-          pokemons={this.state.wildPokemons}
-          handleOnClick={this.capture} />
-        <CapturedPokemons
-          pokemons={this.state.capturedPokemons}
-          handleOnClick={this.release} />
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <WildPokemons
+        pokemons={wildPokemons}
+        handleOnClick={capture} />
+      <CapturedPokemons
+        pokemons={capturedPokemons}
+        handleOnClick={release} />
+    </div>
+  );
 
 }
 

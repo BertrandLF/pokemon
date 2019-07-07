@@ -4,23 +4,25 @@ import PokeCell from './PokeCell';
 import Pokemon from './Pokemon';
 
 interface WildPokemonsProps {
-  pokemons: Array<Pokemon>;
+  pokemons: Set<Pokemon>;
   handleOnClick: (id: number) => void;
 }
 class WildPokemons extends React.Component<WildPokemonsProps> {
 
-  cells = this.props.pokemons.map((pokemon: Pokemon) =>
-    <PokeCell
-      key={pokemon.id}
-      pokemon={pokemon}
-      handleOnClick={this.props.handleOnClick}
-    />
-  );
+  cells() {
+    return Array.from(this.props.pokemons.values()).map((pokemon: Pokemon) =>
+      <PokeCell
+        key={pokemon.id}
+        pokemon={pokemon}
+        handleOnClick={this.props.handleOnClick}
+      />
+    );
+  }
 
   render() {
     return (
       <section className="wild-pokemons">
-        {this.cells}
+        {this.cells()}
       </section>
     )
   }
