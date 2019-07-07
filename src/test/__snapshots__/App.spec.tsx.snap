@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<div
+  className="App"
+>
+  <WildPokemons
+    handleOnClick={[Function]}
+    pokemons={Map {}}
+  />
+  <CapturedPokemons
+    handleOnClick={[Function]}
+    pokemons={Map {}}
+  />
+</div>
+`;

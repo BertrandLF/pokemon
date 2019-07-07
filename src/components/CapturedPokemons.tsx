@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/CapturedPokemons.css';
 import Pokemon from './Pokemon';
-import PokeCard from './PokeCard';
+import PokeCard from './CapturedPokemon';
 
 interface CapturedPokemonsProps {
   pokemons: Map<number, Pokemon>;

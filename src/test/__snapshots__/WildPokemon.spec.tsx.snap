@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Pokemon 1`] = `
+<button
+  className="wild-pokemon"
+  onClick={[Function]}
+  style={
+    Object {
+      "backgroundImage": "url(https://someUrl/someImage.png)",
+    }
+  }
+/>
+`;

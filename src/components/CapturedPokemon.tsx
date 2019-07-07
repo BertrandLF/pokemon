@@ -1,13 +1,13 @@
 import React from 'react'
-import './styles/PokeCard.css';
+import './styles/CapturedPokemon.css';
 import Pokemon from './Pokemon';
 
-interface PokeCardProps {
+interface CapturedPokemonProps {
   pokemon: Pokemon;
   handleOnClick: (pokemon: Pokemon) => void;
 }
 
-class PokeCard extends React.Component<PokeCardProps> {
+class CapturedPokemon extends React.Component<CapturedPokemonProps> {
 
   getGif(pokemon: string) {
     const normalizedPokemonName: string = pokemon.replace('-', '');
@@ -16,22 +16,21 @@ class PokeCard extends React.Component<PokeCardProps> {
 
   render() {
     const pokemon = this.props.pokemon;
-    const id = pokemon.id;
     return (
       <div className='captured-pokemon' onClick={() => this.props.handleOnClick(pokemon)}>
         <img src={this.getGif(pokemon.name)} className='sprite-image' alt="sprite" />
         <div className="pokemon-data">
           <div className="data-row">
-            <p className="cell">ID: </p>
+            <p className="cell">ID:</p>
             <p className="cell">{pokemon.id}</p>
           </div>
           <div className="data-row">
-            <p className="cell">Name: </p>
-            <p className="cell">  {pokemon.name}</p>
+            <p className="cell">Name:</p>
+            <p className="cell">{pokemon.name}</p>
           </div>
           <div className="data-row">
-            <p className="cell">Type: </p>
-            <p className="cell">  {pokemon.type}</p>
+            <p className="cell">Type:</p>
+            <p className="cell">{pokemon.type}</p>
           </div>
         </div>
       </div>
@@ -39,4 +38,4 @@ class PokeCard extends React.Component<PokeCardProps> {
   }
 }
 
-export default PokeCard;
+export default CapturedPokemon;

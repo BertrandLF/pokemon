@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/WildPokemons.css';
-import PokeCell from './PokeCell';
+import PokeCell from './WildPokemon';
 import Pokemon from './Pokemon';
 
 interface WildPokemonsProps {

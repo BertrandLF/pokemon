@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders pokemon details 1`] = `
+<div
+  className="captured-pokemon"
+  onClick={[Function]}
+>
+  <img
+    alt="sprite"
+    className="sprite-image"
+    src="http://pokestadium.com/sprites/xy/psyduck.gif"
+  />
+  <div
+    className="pokemon-data"
+  >
+    <div
+      className="data-row"
+    >
+      <p
+        className="cell"
+      >
+        ID:
+      </p>
+      <p
+        className="cell"
+      >
+        54
+      </p>
+    </div>
+    <div
+      className="data-row"
+    >
+      <p
+        className="cell"
+      >
+        Name:
+      </p>
+      <p
+        className="cell"
+      >
+        psyduck
+      </p>
+    </div>
+    <div
+      className="data-row"
+    >
+      <p
+        className="cell"
+      >
+        Type:
+      </p>
+      <p
+        className="cell"
+      >
+        water
+      </p>
+    </div>
+  </div>
+</div>
+`;

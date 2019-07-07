@@ -15,8 +15,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "jest",
+    "eject": "react-scripts eject",
+    "debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,6 +35,33 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.5.0",
+    "@babel/preset-react": "^7.0.0",
+    "@skidding/async-retry": "^2.0.0",
+    "@testing-library/react": "^8.0.4",
+    "@types/enzyme": "^3.10.1",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/fetch-mock": "^7.3.1",
+    "@types/react-test-renderer": "^16.8.2",
+    "babel-jest": "^24.7.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.3.5",
+    "fetch-mock": "^7.3.3",
+    "jest": "^24.7.1",
+    "node-fetch": "^2.6.0",
     "react-test-renderer": "^16.8.6"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    },
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ]
   }
 }

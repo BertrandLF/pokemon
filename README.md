@@ -1,3 +1,14 @@
+# React Pokemon catch and release
+
+## Libraries used
+
+- Typescript 3.5: To get the help of the compiler, and increase self-documented code readibility
+- Jest, enzyme: For automated testing
+- fetch-mock: To mock fetch when adding pokemons during automated tests
+- async-retry: I had a hard time testing the app because of the timer, this helped
+
+I chose not to use redux and reducers since I wanted to try using useState hooks. Time being of the essence, I chose not to delve into the useReducer vs Redux story and kept things simple (my react being rusty).
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

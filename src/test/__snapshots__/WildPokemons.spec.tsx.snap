@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`displays wildPokemons given list of pokemons 1`] = `
+<section
+  className="wild-pokemons"
+>
+  <WildPokemon
+    handleOnClick={[Function]}
+    key="54"
+    pokemon={
+      Pokemon {
+        "id": 54,
+        "name": "psyduck",
+        "sprite": "https://someUrl/someImage.png",
+        "type": "water",
+      }
+    }
+  />
+  <WildPokemon
+    handleOnClick={[Function]}
+    key="1"
+    pokemon={
+      Pokemon {
+        "id": 1,
+        "name": "balbusaur",
+        "sprite": "https://someUrl/someOtherImage.png",
+        "type": "poison",
+      }
+    }
+  />
+</section>
+`;

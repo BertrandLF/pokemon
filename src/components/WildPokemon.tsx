@@ -1,19 +1,19 @@
 import React from 'react';
-import './styles/PokeCell.css';
-import sprites from '../assets/sprites.png';
+import './styles/WildPokemon.css';
 import Pokemon from './Pokemon';
 
-interface PokeCellProps {
+interface WildPokemonProps {
   pokemon: Pokemon;
   handleOnClick: (id: number) => void;
 }
 
-class PokeCell extends React.Component<PokeCellProps> {
+class WildPokemon extends React.Component<WildPokemonProps> {
+
   render() {
     const pokemon = this.props.pokemon;
     const style = { backgroundImage: `url(${pokemon.sprite})` };
     return <button
-      className="poke-cell"
+      className="wild-pokemon"
       style={style}
       onClick={() => this.props.handleOnClick(pokemon.id)} >
     </button>
@@ -21,4 +21,4 @@ class PokeCell extends React.Component<PokeCellProps> {
 
 }
 
-export default PokeCell;
+export default WildPokemon;

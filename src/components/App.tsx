@@ -4,7 +4,7 @@ import CapturedPokemons from './CapturedPokemons';
 import Pokemon from './Pokemon';
 import './styles/App.css';
 
-function App() {
+const App = () => {
 
   const [wildPokemons, setWildPokemons] = useState(new Map<number, Pokemon>());
   const [capturedPokemons, setCapturedPokemons] = useState(new Map<number, Pokemon>());
@@ -12,56 +12,52 @@ function App() {
   const [loadedPokemonId, setLoadedPokemonId] = useState(1);
 
   useEffect(() => {
+    const addPokemon = () => {
+      if (loadedPokemonId < 152) {
+        fetchPokemon(loadedPokemonId)
+          .then(data => {
+            const pokemon = new Pokemon(data);
+            wildPokemons.set(pokemon.id, pokemon);
+            setWildPokemons(wildPokemons);
+            setLoadedPokemonId(loadedPokemonId + 1);
+          })
+          .catch(err => console.log('Failed to load pokemon!', err));
+      }
+    }
     var timerID = setInterval(() => addPokemon(), 500);
 
     return function cleanup() {
       clearInterval(timerID);
     };
-  });
+  }, [wildPokemons, loadedPokemonId]);
 
-  function addPokemon() {
-    if (loadedPokemonId < 152) {
-      fetch(`https://pokeapi.co/api/v2/pokemon/${loadedPokemonId}`, {
-        method: "GET",
-        headers: {
-          "access-control-allow-origin": "*",
-          "Content-type": "application/json; charset=UTF-8"
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          const pokemon = new Pokemon(data);
-          wildPokemons.set(pokemon.id, pokemon);
-          setWildPokemons(wildPokemons);
-          setLoadedPokemonId(loadedPokemonId + 1);
-        })
-        .catch(err => console.log('Failed to catch it !', err));
-    }
-  }
-
-  function capture(id: number) {
+  const capture = (id: number) => {
     if (pokeBalls > 0) {
-      fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
-        method: "GET",
-        headers: {
-          "access-control-allow-origin": "*",
-          "Content-type": "application/json; charset=UTF-8"
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          const pokemon = new Pokemon(data);
-          capturedPokemons.set(pokemon.id, pokemon);
-          wildPokemons.delete(pokemon.id);
-          setCapturedPokemons(capturedPokemons);
-          setWildPokemons(wildPokemons);
-          setPokeBalls(pokeBalls - 1);
-        })
-        .catch(err => console.log('Failed to catch it !', err));
+          const pokemon = wildPokemons.get(id);
+          if (pokemon) {
+            capturedPokemons.set(pokemon.id, pokemon);
+            wildPokemons.delete(pokemon.id);
+            setCapturedPokemons(capturedPokemons);
+            setWildPokemons(wildPokemons);
+            setPokeBalls(pokeBalls - 1);
+          } else {
+            console.log('Failed to catch it!');
+          }
     }
   }
 
-  function release(pokemon: Pokemon) {
+  const fetchPokemon = (id: number): Promise<JSON> => {
+    return fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
+      method: "GET",
+      headers: {
+        "access-control-allow-origin": "*",
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+      .then(res => res.json());
+  }
+
+  const release = (pokemon: Pokemon) => {
     capturedPokemons.delete(pokemon.id);
     wildPokemons.set(pokemon.id, pokemon);
     setCapturedPokemons(capturedPokemons);
