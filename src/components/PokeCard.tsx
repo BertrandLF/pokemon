@@ -4,8 +4,7 @@ import Pokemon from './Pokemon';
 
 interface PokeCardProps {
   pokemon: Pokemon;
-  index: number;
-  handleOnClick: (index: number) => void;
+  handleOnClick: (pokemon: Pokemon) => void;
 }
 
 class PokeCard extends React.Component<PokeCardProps> {
@@ -17,9 +16,9 @@ class PokeCard extends React.Component<PokeCardProps> {
 
   render() {
     const pokemon = this.props.pokemon;
-    const index = this.props.index;
+    const id = pokemon.id;
     return (
-      <div className='captured-pokemon' onClick={() => this.props.handleOnClick(index)}>
+      <div className='captured-pokemon' onClick={() => this.props.handleOnClick(pokemon)}>
         <img src={this.getGif(pokemon.name)} className='sprite-image' alt="sprite" />
         <div className="pokemon-data">
           <div className="data-row">

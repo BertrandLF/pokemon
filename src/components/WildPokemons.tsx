@@ -4,7 +4,7 @@ import PokeCell from './PokeCell';
 import Pokemon from './Pokemon';
 
 interface WildPokemonsProps {
-  pokemons: Set<Pokemon>;
+  pokemons: Map<number, Pokemon>;
   handleOnClick: (id: number) => void;
 }
 class WildPokemons extends React.Component<WildPokemonsProps> {

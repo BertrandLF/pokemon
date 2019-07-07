@@ -1,14 +1,13 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import WildPokemons from './WildPokemons';
 import CapturedPokemons from './CapturedPokemons';
 import Pokemon from './Pokemon';
 import './styles/App.css';
-import ReactDOM from 'react-dom';
 
 function App() {
 
-  const [wildPokemons, setWildPokemons] = useState(new Set<Pokemon>());
-  const [capturedPokemons, setCapturedPokemons] = useState(new Array<Pokemon>());
+  const [wildPokemons, setWildPokemons] = useState(new Map<number, Pokemon>());
+  const [capturedPokemons, setCapturedPokemons] = useState(new Map<number, Pokemon>());
   const [pokeBalls, setPokeBalls] = useState(6);
   const [loadedPokemonId, setLoadedPokemonId] = useState(1);
 
@@ -32,7 +31,7 @@ function App() {
         .then(res => res.json())
         .then(data => {
           const pokemon = new Pokemon(data);
-          wildPokemons.add(pokemon);
+          wildPokemons.set(pokemon.id, pokemon);
           setWildPokemons(wildPokemons);
           setLoadedPokemonId(loadedPokemonId + 1);
         })
@@ -41,7 +40,6 @@ function App() {
   }
 
   function capture(id: number) {
-    const index = id - 1;
     if (pokeBalls > 0) {
       fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
         method: "GET",
@@ -53,8 +51,8 @@ function App() {
         .then(res => res.json())
         .then(data => {
           const pokemon = new Pokemon(data);
-          capturedPokemons.push(pokemon);
-          wildPokemons.delete(pokemon);
+          capturedPokemons.set(pokemon.id, pokemon);
+          wildPokemons.delete(pokemon.id);
           setCapturedPokemons(capturedPokemons);
           setWildPokemons(wildPokemons);
           setPokeBalls(pokeBalls - 1);
@@ -63,10 +61,9 @@ function App() {
     }
   }
 
-  function release(index: number) {
-    const pokemon: Pokemon = capturedPokemons[index];
-    capturedPokemons.splice(index, 1);
-    wildPokemons.add(pokemon);
+  function release(pokemon: Pokemon) {
+    capturedPokemons.delete(pokemon.id);
+    wildPokemons.set(pokemon.id, pokemon);
     setCapturedPokemons(capturedPokemons);
     setWildPokemons(wildPokemons);
     setPokeBalls(pokeBalls + 1);

@@ -4,26 +4,25 @@ import Pokemon from './Pokemon';
 import PokeCard from './PokeCard';
 
 interface CapturedPokemonsProps {
-  pokemons: Array<Pokemon>;
-  handleOnClick: (id: number) => void;
+  pokemons: Map<number, Pokemon>;
+  handleOnClick: (pokemon: Pokemon) => void;
 }
 
 class CapturedPokemons extends React.Component<CapturedPokemonsProps> {
 
   cells() {
-    return this.props.pokemons.map((pokemon: Pokemon, index) =>
+    return Array.from(this.props.pokemons.values()).map((pokemon: Pokemon) =>
       <PokeCard
         key={pokemon.id}
-        index={index}
         pokemon={pokemon}
-        handleOnClick={() => this.props.handleOnClick(index)}
+        handleOnClick={this.props.handleOnClick}
       />
     );
   };
 
   render() {
     const pokemons = this.props.pokemons;
-    if (pokemons.length === 0) {
+    if (pokemons.size === 0) {
       return <section className="captured-pokemons" />
     } else {
       return (
