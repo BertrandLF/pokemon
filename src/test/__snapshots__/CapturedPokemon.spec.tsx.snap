@@ -8,6 +8,7 @@ exports[`renders pokemon details 1`] = `
   <img
     alt="sprite"
     className="sprite-image"
+    onError={[Function]}
     src="http://pokestadium.com/sprites/xy/psyduck.gif"
   />
   <div

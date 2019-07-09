@@ -9,16 +9,28 @@ interface CapturedPokemonProps {
 
 class CapturedPokemon extends React.Component<CapturedPokemonProps> {
 
+  constructor (props: Readonly<CapturedPokemonProps>){
+    super(props);
+    this.getGif = this.getGif.bind(this);
+    this.setNormalizedSrc = this.setNormalizedSrc.bind(this);
+  }
+
+  pokeGifUrl: string = 'http://pokestadium.com/sprites/xy/';
+
   getGif(pokemon: string) {
-    const normalizedPokemonName: string = pokemon.replace('-', '');
-    return 'http://pokestadium.com/sprites/xy/' + normalizedPokemonName + '.gif';
+    return this.pokeGifUrl + pokemon + '.gif';
+  }
+
+  setNormalizedSrc(img: any){
+    const normalizedPokemonName: string = this.props.pokemon.name.replace('-', '');
+    img.target.src = this.pokeGifUrl + normalizedPokemonName + '.gif';
   }
 
   render() {
     const pokemon = this.props.pokemon;
     return (
       <div className='captured-pokemon' onClick={() => this.props.handleOnClick(pokemon)}>
-        <img src={this.getGif(pokemon.name)} className='sprite-image' alt="sprite" />
+        <img onError={this.setNormalizedSrc} src={this.getGif(pokemon.name)} className='sprite-image' alt="sprite" />
         <div className="pokemon-data">
           <div className="data-row">
             <p className="cell">ID:</p>
