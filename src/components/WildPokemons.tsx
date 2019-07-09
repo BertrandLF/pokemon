@@ -10,7 +10,9 @@ interface WildPokemonsProps {
 class WildPokemons extends React.Component<WildPokemonsProps> {
 
   cells() {
-    return Array.from(this.props.pokemons.values()).map((pokemon: Pokemon) =>
+    return Array.from(this.props.pokemons.values())
+            .sort((a, b) => a.id - b.id)
+            .map((pokemon: Pokemon) =>
       <PokeCell
         key={pokemon.id}
         pokemon={pokemon}
