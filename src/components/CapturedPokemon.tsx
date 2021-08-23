@@ -15,7 +15,7 @@ class CapturedPokemon extends React.Component<CapturedPokemonProps> {
     this.setNormalizedSrc = this.setNormalizedSrc.bind(this);
   }
 
-  pokeGifUrl: string = 'http://pokestadium.com/sprites/xy/';
+  pokeGifUrl: string = 'https://img.pokemondb.net/sprites/black-white/anim/normal/';
 
   getGif(pokemon: string) {
     return this.pokeGifUrl + pokemon + '.gif';
